@@ -1,3 +1,4 @@
+
 name: Ticket Hunter
 
 on:
@@ -11,6 +12,7 @@ permissions:
 jobs:
   monitor:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
 
     steps:
       - name: Checkout
@@ -30,7 +32,9 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install requests beautifulsoup4
+        run: |
+          pip install requests playwright
+          python -m playwright install --with-deps chromium
 
       - name: Run monitor
         env:
